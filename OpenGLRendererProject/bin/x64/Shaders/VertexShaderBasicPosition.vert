@@ -1,4 +1,4 @@
-#version 450 core
+#version 430 core
 
 layout (location = 0) in vec3 Position;
 layout (location = 1) in vec3 Normal;
@@ -17,7 +17,7 @@ out vec3 outFragPosition;
 void main()
 {
 	outFragPosition = vec3(model*vec4(Position.x, Position.y, Position.z, 1.0f));
-	outNormal = Normal;
+	outNormal = normalize(mat3(transpose(inverse(model))) * Normal);
 	outTexC = UV;
 
 	gl_Position = projection * view * vec4(outFragPosition, 1.0f);
